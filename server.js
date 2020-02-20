@@ -81,6 +81,16 @@ server.get('/api/users', restricted, (req, res) => {
         })
 })
 
+server.get('/api/logout', restricted, (req, res) => {
+    req.session.destroy(err => {
+         if (err) {
+              res.json({err: "you're staying with me bud"})
+         } else {
+             res.json({mes: "good job, you've esc aepd"})
+         }
+    })
+})
+
 function restricted(req, res, next){
     if(req.session && req.session.user){
         next()
