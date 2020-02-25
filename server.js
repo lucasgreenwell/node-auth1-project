@@ -10,12 +10,12 @@ const sessionConfig = {
     name: 'bikini',
     secret: 'super secret',
     cookie: {
-        maxAge: 1000 * 3600 * 24,
+        maxAge: 1000 * 3600 * 24, //one day in milliseconds
         secure: false, //needs to be true in production
         httpOnly: true
     },
     resave: false,
-    saveUninitialized: true //gdpr compliance, illegal to set cookies automatically
+    saveUninitialized: true //needs to be false in production for gdpr compliance, illegal to set cookies automatically
 }
 
 server.use(express.json());
@@ -46,7 +46,7 @@ server.post('/api/login', (req, res) => {
     } else {
         db('users').select('*').where({ username: req.body.username })
             .then(user => {
-                console.log(user)
+                // console.log(user)
                 // res.status(200).json({mes: 'closer'})
 
                 if (user) {
